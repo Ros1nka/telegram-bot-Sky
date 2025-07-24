@@ -5,7 +5,8 @@ target/
 !**/src/test/**/target/
 /.idea
 /.gigaide
-token.env
+.env
+src/main/resources/application-dev.properties
 
 
 ### STS ###
@@ -36,3 +37,5 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/java/pro/sky/telegrambot/token.env
+/.env
+/src/main/resources/application-dev.properties
