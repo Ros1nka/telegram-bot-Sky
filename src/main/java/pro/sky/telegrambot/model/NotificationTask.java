@@ -8,5 +8,4 @@ import java.time.LocalDateTime;
 @Entity
 public class NotificationTask {
 
-    LocalDateTime dateTime;
 }
