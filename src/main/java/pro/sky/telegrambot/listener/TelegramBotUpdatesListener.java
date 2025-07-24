@@ -1,5 +1,7 @@
 package pro.sky.telegrambot.listener;
 
+import pro.sky.telegrambot.service.MessageService;
+
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
 import com.pengrad.telegrambot.model.Update;
@@ -19,6 +21,12 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
     @Autowired
     private TelegramBot telegramBot;
 
+    private final MessageService messageService;
+
+    public TelegramBotUpdatesListener(MessageService messageService) {
+        this.messageService = messageService;
+    }
+
     @PostConstruct
     public void init() {
         telegramBot.setUpdatesListener(this);
@@ -28,7 +36,19 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
     public int process(List<Update> updates) {
         updates.forEach(update -> {
             logger.info("Processing update: {}", update);
-            // Process your updates here
+
+            if (update.message() != null && update.message().text() != null) {
+                String messageText = update.message().text();
+                long chatId = update.message().chat().id();
+
+                logger.info("Processing message: {}", messageText);
+
+                if (messageText.equals("/start")) {
+                    messageService.sendWelcomeMessage(chatId);
+                } else {
+                    messageService.processReminder(chatId, messageText);
+                }
+            }
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
