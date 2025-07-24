@@ -19,11 +19,15 @@ public class NotificationTask {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "chat_id")
     private Long chatId;
 
     @Column(name = "notification_text")
     private String text;
-    private LocalDateTime dateTime;
-    private boolean isSent;
 
+    @Column(name = "date_time")
+    private LocalDateTime dateTime;
+
+    @Column(name = "is_sent")
+    private boolean isSent;
 }

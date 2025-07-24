@@ -2,7 +2,7 @@ package pro.sky.telegrambot.service.Impl;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SendMessage;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pro.sky.telegrambot.model.NotificationTask;
 import pro.sky.telegrambot.repository.NotificationTaskRepository;
@@ -14,13 +14,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
+@RequiredArgsConstructor
 public class MessageServiceImpl implements MessageService {
 
-    @Autowired
-    private TelegramBot telegramBot;
+    private final TelegramBot telegramBot;
 
-    @Autowired
-    NotificationTaskRepository notificationTaskRepository;
+    private final NotificationTaskRepository notificationTaskRepository;
 
     @Override
     public void sendWelcomeMessage(Long chatId) {
